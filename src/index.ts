@@ -260,7 +260,16 @@ const game = new Game()
 
 document.body.onkeyup = (e: KeyboardEvent) => {
     switch (e.code) {
-
+        case "ArrowLeft": {
+            game.state.paused = true;
+            if (game.cannotShift(-1)) return game.state.paused = false;
+            game.dataUrlState.restore()
+                .then(() => {
+                    game.tetromino.position.x--;
+                    game.drawTetromino();
+                    game.state.paused = false;
+                })
+        } break;
 
     }
 }
