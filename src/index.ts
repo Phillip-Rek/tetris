@@ -1,6 +1,23 @@
 import "font-awesome/css/font-awesome.min.css";
-// import { createHTMLElement } from "./utils/utils";
+import "./index.css";
 import { createContext } from "./create-context";
 
+const box = (coordinates2D: [number, number], erase?: boolean, color?: string) => {
+    const [x, y] = coordinates2D;
 
-const [canvas, ctx] = createContext();
+    if (erase) {
+        ctx.fillStyle = "#ffff";
+        return ctx.fillRect(x, y, 30, 30);
+    }
+
+    ctx.fillStyle = color || "#000f";
+    ctx.fillRect(x, y, 30, 30);
+    ctx.fillStyle = "#ffff";
+    ctx.fillRect(x + 2, y + 2, 26, 26);
+    ctx.fillStyle = color || "#000f";
+    ctx.fillRect(x + 4, y + 4, 22, 22);
+}
+
+const [ctx, canvas] = createContext();
+
+canvas.style.border = "1px solid red";
