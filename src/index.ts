@@ -29,6 +29,17 @@ class Game {
     dataUrlState: DataUrlState = new DataUrlState(canvas, ctx);
     tetromino: Tetromino = new TetrominoGrid().getRandom();
 
+
+    stickTetromino = () => {
+        for (let i = 0; i < this.tetromino.grid.length; i++) {
+            for (let j = 0; j < this.tetromino.grid[i].length; j++) {
+                if (this.tetromino.grid[i][j]) {
+                    this.grid[i + this.tetromino.position.y][j + this.tetromino.position.x] = 1;
+                }
+            }
+        }
+    }
+
     drawTetromino = () => {
         for (let i = 0; i < this.tetromino.grid.length; i++) {
             for (let j = 0; j < this.tetromino.grid[i].length; j++) {
