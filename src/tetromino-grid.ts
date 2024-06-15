@@ -14,4 +14,13 @@ export class TetrominoGrid {
             [0, 2, 0, 0],
         ], "#000f"]
     }
+
+    get tetromino_TWO() {
+        return [[
+            [0, 2, 0, 0],
+            [0, 2, 0, 0],
+            [0, 2, 2, 0],
+            [0, 0, 0, 0],
+        ], "#000f"]
+    }
 }
