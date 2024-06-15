@@ -271,5 +271,27 @@ document.body.onkeyup = (e: KeyboardEvent) => {
                 })
         } break;
 
+        case "ArrowRight": {
+            game.state.paused = true;
+            if (game.cannotShift(1)) return game.state.paused = false;
+            game.dataUrlState.restore()
+                .then(() => {
+                    game.tetromino.position.x++;
+                    game.drawTetromino();
+                    game.state.paused = false;
+                })
+        } break;
+
+        case "ArrowDown": {
+            game.state.paused = true;
+            if (game.hitGround) return game.state.paused = false;
+            game.dataUrlState.restore()
+                .then(() => {
+                    game.tetromino.position.y++;
+                    game.drawTetromino();
+                    game.state.paused = false;
+                })
+        } break;
+
     }
 }
