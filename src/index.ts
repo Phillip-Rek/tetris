@@ -29,6 +29,50 @@ class Game {
     dataUrlState: DataUrlState = new DataUrlState(canvas, ctx);
     tetromino: Tetromino = new TetrominoGrid().getRandom();
 
+    start = () => {
+        this.drawTetromino();
+        const loop = setInterval(() => {
+
+            if (this.state.paused) return;
+
+            if (this.hitGround) {
+                this.dataUrlState.update();
+                this.stickTetromino();
+
+                this.handleCompleteRows();  //remove a row in a grid if it is complete
+
+                if (this.tetromino.position.y === 1) {
+                    clearInterval(loop);
+                    return alert("Game Over");
+                }
+
+                this.tetromino = new TetrominoGrid().getRandom();
+
+                this.tetromino.position = { x: 6, y: 1 }
+
+                this.dataUrlState.restore()
+                    .then(() => {
+                        this.drawTetromino();
+                    })
+                    .catch(err => {
+                        console.warn(err)
+                    })
+
+                return;
+            }
+
+
+            this.dataUrlState.restore()
+                .then(() => {
+                    this.drawTetromino();
+                })
+                .catch(err => {
+                    console.warn(err)
+                })
+            this.tetromino.position.y++;
+
+        }, 400);
+    }
 
     increaseScore = () => {
         this.score += 5;
