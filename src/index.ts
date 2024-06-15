@@ -29,6 +29,38 @@ class Game {
     dataUrlState: DataUrlState = new DataUrlState(canvas, ctx);
     tetromino: Tetromino = new TetrominoGrid().getRandom();
 
+
+    rotateTetromino = (): boolean => {
+
+        const grid = [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+        ];
+
+        //column
+        for (let i = 0; i < 4; i++) {
+            //row
+            for (let j = 3; j >= 0; j--) grid[i][3 - j] = this.tetromino.grid[j][i];
+        }
+
+        //check if a tetromino can be rotated without collision
+        for (let i = 0; i < grid.length; i++) {
+            for (let j = 0; j < grid[i].length; j++) {
+                if (grid[i][j]) {
+                    if (this.grid[i + this.tetromino.position.y][j + this.tetromino.position.x]) {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        this.tetromino.grid = grid;
+
+        return true;
+    }
+
     cannotShift = (x: number): boolean => {
 
         for (let i = 0; i < this.tetromino.grid.length; i++) {
