@@ -304,5 +304,14 @@ document.body.onkeyup = (e: KeyboardEvent) => {
                 })
         } break;
 
+
+        case "KeyL": {
+            if (e.altKey) {
+                game.grid.forEach((row, i) => {
+                    console.log(i + " " + row.toString());
+                });
+            }
+        } break;
+
     }
 }
