@@ -6,7 +6,7 @@ export interface Tetromino {
 
 export class TetrominoGrid {
 
-    get tetromino_ONE() {
+    get tetromino_1() {
         return [[
             [0, 2, 0, 0],
             [0, 2, 0, 0],
@@ -15,7 +15,7 @@ export class TetrominoGrid {
         ], "#000f"]
     }
 
-    get tetromino_TWO() {
+    get tetromino_2() {
         return [[
             [0, 2, 0, 0],
             [0, 2, 0, 0],
@@ -24,7 +24,7 @@ export class TetrominoGrid {
         ], "#000f"]
     }
 
-    get tetromino_THREE() {
+    get tetromino_3() {
         return [[
             [0, 2, 0, 0],
             [0, 2, 2, 0],
@@ -33,7 +33,7 @@ export class TetrominoGrid {
         ], "#000f"]
     }
 
-    get tetromino_FOUR() {
+    get tetromino_4() {
         return [[
             [0, 2, 0, 0],
             [0, 2, 2, 0],
@@ -42,7 +42,7 @@ export class TetrominoGrid {
         ], "#000f"]
     }
 
-    get tetromino_FIVE() {
+    get tetromino_5() {
         return [[
             [0, 0, 0, 0],
             [0, 2, 2, 0],
