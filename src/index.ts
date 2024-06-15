@@ -71,7 +71,6 @@ class Game {
                 return;
             }
 
-
             this.dataUrlState.restore()
                 .then(() => {
                     this.drawTetromino();

@@ -10,7 +10,7 @@ export class TetrominoGrid {
         const random = Math.random();
         let grid: number[][] = [];
         let color: string = "";
-        if (random < 0.2) { this.tetromino_1; }
+        if (random < 0.2) { [grid, color] = this.tetromino_1; }
         else if (random < 0.4) { [grid, color] = this.tetromino_2; }
         else if (random < 0.6) { [grid, color] = this.tetromino_3; }
         else if (random < 0.8) { [grid, color] = this.tetromino_4; }
