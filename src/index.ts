@@ -2,6 +2,7 @@ import "font-awesome/css/font-awesome.min.css";
 import "./index.css";
 import { createContext } from "./create-context";
 import { DataUrlState } from "./data-url-state";
+import { Tetromino, TetrominoGrid } from "./tetromino-grid";
 
 const box = (coordinates2D: [number, number], erase?: boolean, color?: string) => {
     const [x, y] = coordinates2D;
@@ -26,4 +27,5 @@ class Game {
     state = { over: false, paused: false };
     grid: Array<Array<number>> = [];
     dataUrlState: DataUrlState = new DataUrlState(canvas, ctx);
+    tetromino: Tetromino = new TetrominoGrid().getRandom();
 }
