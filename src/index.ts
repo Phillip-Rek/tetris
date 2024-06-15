@@ -256,4 +256,11 @@ class Game {
 
 }
 
-// new Game().initializeGrid()
+const game = new Game()
+
+document.body.onkeyup = (e: KeyboardEvent) => {
+    switch (e.code) {
+
+
+    }
+}
