@@ -29,6 +29,13 @@ class Game {
     dataUrlState: DataUrlState = new DataUrlState(canvas, ctx);
     tetromino: Tetromino = new TetrominoGrid().getRandom();
 
+
+    increaseScore = () => {
+        this.score += 5;
+        const scoreEl = <HTMLDivElement>document.getElementById("score");
+        scoreEl.innerHTML = `Score: ${this.score}`;
+    }
+
     handleCompleteRows = () => {
         this.grid.forEach((el, i) => {
             if (i < this.tetromino.position.y || i > this.tetromino.position.y + 4) return;
