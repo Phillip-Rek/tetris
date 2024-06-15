@@ -20,4 +20,6 @@ const box = (coordinates2D: [number, number], erase?: boolean, color?: string) =
 
 const [ctx, canvas] = createContext();
 
-canvas.style.border = "1px solid red";
+class Game {
+
+}
