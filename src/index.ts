@@ -51,6 +51,16 @@ class Game {
         }
     }
 
+    drawBoxes = () => {
+        for (let i = 1; i < 19; i++) {
+            for (let j = 1; j < 12; j++) {
+                if (this.grid[i][j]) {
+                    box([j * 30, i * 30]);
+                }
+            }
+        }
+    }
+
 }
 
 // new Game().initializeGrid()
