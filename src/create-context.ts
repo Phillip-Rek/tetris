@@ -1,4 +1,4 @@
-export function createContext(w?: number, h?: number) {
+export function createContext(w?: number, h?: number): [CanvasRenderingContext2D, HTMLCanvasElement] {
 
     let canvas = document.createElement("canvas");
 

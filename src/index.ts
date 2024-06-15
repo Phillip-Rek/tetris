@@ -1,13 +1,6 @@
 import "font-awesome/css/font-awesome.min.css";
-import { createHTMLElement } from "./utils/utils";
+// import { createHTMLElement } from "./utils/utils";
+import { createContext } from "./create-context";
 
 
-
-const gameContainer = createHTMLElement("div");
-
-function main() {
-    console.log(55)
-
-}
-
-main();
+const [canvas, ctx] = createContext();
