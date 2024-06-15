@@ -29,6 +29,16 @@ class Game {
     dataUrlState: DataUrlState = new DataUrlState(canvas, ctx);
     tetromino: Tetromino = new TetrominoGrid().getRandom();
 
+    constructor() {
+        this.initializeGrid();
+        this.drawWalls();
+        this.dataUrlState.update();
+        this.dataUrlState.initDataUrl(this.dataUrlState.getDataUrl());
+        // this.dataUrlState.restoreInitDataUrl();
+
+        this.start();
+    }
+
     start = () => {
         this.drawTetromino();
         const loop = setInterval(() => {
