@@ -293,5 +293,16 @@ document.body.onkeyup = (e: KeyboardEvent) => {
                 })
         } break;
 
+        case "Enter": {
+            game.state.paused = true;
+            if (!game.rotateTetromino()) return game.state.paused = false;
+
+            game.dataUrlState.restore()
+                .then(() => {
+                    game.drawTetromino();
+                    game.state.paused = false;
+                })
+        } break;
+
     }
 }
