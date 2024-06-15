@@ -21,5 +21,6 @@ const box = (coordinates2D: [number, number], erase?: boolean, color?: string) =
 const [ctx, canvas] = createContext();
 
 class Game {
-
+    score = 0;
+    state = { over: false, paused: false };
 }
