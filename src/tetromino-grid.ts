@@ -6,13 +6,21 @@ export interface Tetromino {
 
 export class TetrominoGrid {
 
-    getRandom() {
+    getRandom(): Tetromino {
         const random = Math.random();
-        if (random < 0.2) return this.tetromino_1;
-        else if (random < 0.4) return this.tetromino_2;
-        else if (random < 0.6) return this.tetromino_3;
-        else if (random < 0.8) return this.tetromino_4;
-        else return this.tetromino_5;
+        let grid: number[][] = [];
+        let color: string = "";
+        if (random < 0.2) { this.tetromino_1; }
+        else if (random < 0.4) { [grid, color] = this.tetromino_2; }
+        else if (random < 0.6) { [grid, color] = this.tetromino_3; }
+        else if (random < 0.8) { [grid, color] = this.tetromino_4; }
+        else { [grid, color] = this.tetromino_5; }
+
+        return {
+            position: { x: 7, y: 0 },
+            color,
+            grid
+        }
     }
 
     get tetromino_1() {
