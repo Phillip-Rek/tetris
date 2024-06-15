@@ -23,4 +23,5 @@ const [ctx, canvas] = createContext();
 class Game {
     score = 0;
     state = { over: false, paused: false };
+    grid: Array<Array<number>> = [];
 }
