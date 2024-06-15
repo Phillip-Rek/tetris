@@ -6,4 +6,12 @@ export interface Tetromino {
 
 export class TetrominoGrid {
 
+    get tetromino_ONE() {
+        return [[
+            [0, 2, 0, 0],
+            [0, 2, 0, 0],
+            [0, 2, 0, 0],
+            [0, 2, 0, 0],
+        ], "#000f"]
+    }
 }
