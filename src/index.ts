@@ -29,6 +29,43 @@ class Game {
     dataUrlState: DataUrlState = new DataUrlState(canvas, ctx);
     tetromino: Tetromino = new TetrominoGrid().getRandom();
 
+    handleCompleteRows = () => {
+        this.grid.forEach((el, i) => {
+            if (i < this.tetromino.position.y || i > this.tetromino.position.y + 4) return;
+            if (i >= 19 || i === 0) return;
+
+            let boxes = 0;
+            for (let box of el) {
+                if (box) boxes++;
+            }
+
+            if (boxes === 13) {
+                //row in a grid
+                let index = i;
+
+                while (index > 1) {
+                    for (let j = 1; j < el.length - 1; j++) {
+                        this.grid[index][j] = this.grid[index - 1][j];
+                    }
+                    index--;
+                }
+
+                this.state.paused = true;
+                this.dataUrlState.restoreInitDataUrl();
+                this.dataUrlState.restore()
+                    .then(() => {
+
+                        this.increaseScore()
+
+                        this.drawBoxes();
+                        this.dataUrlState.update();
+                        this.state.paused = false;
+                    })
+
+            }
+        })
+    }
+
 
     rotateTetromino = (): boolean => {
 
