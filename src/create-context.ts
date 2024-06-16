@@ -10,8 +10,8 @@ export function createContext(w?: number, h?: number, clean: boolean = true): [C
     canvas.width = w || 390;
     canvas.height = h || 600;
     canvas.style.backgroundColor = "#fff";
-    canvas.style.width = "390px";
-    canvas.style.height = "600px";
+    canvas.style.width = w + "px" || "390px";
+    canvas.style.height = h + "px" || "600px";
     document.getElementById("draw-pad")?.appendChild(canvas);
 
     const ctx = <CanvasRenderingContext2D>canvas.getContext("2d");
