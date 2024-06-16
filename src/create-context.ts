@@ -3,10 +3,11 @@ export function createContext(w?: number, h?: number, clean: boolean = true): [C
 
     let canvas = document.createElement("canvas");
 
-    if (clean)
+    if (clean) {
         Array.from(document.body.children).forEach(el => { el.remove() })
+        document.body.appendChild(canvas);
+    }
 
-    document.body.appendChild(canvas);
     canvas.width = w || 390;
     canvas.height = h || 600;
     canvas.style.backgroundColor = "#fff";
