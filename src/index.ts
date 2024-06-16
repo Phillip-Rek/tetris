@@ -131,7 +131,7 @@ class Game {
                 this.dataUrlState.restore()
                     .then(() => {
 
-                        this.increaseScore()
+                        this.increaseScore();
 
                         this.drawBoxes();
                         this.dataUrlState.update();
@@ -276,6 +276,31 @@ const game = new Game(new SidePanel(undefined), new Draw(ctx));
 
 document.body.onkeyup = (e: KeyboardEvent) => {
     switch (e.code) {
+        case "Enter": {
+            game.state.paused = true;
+            if (!game.rotateTetromino()) return game.state.paused = false;
+
+            game.dataUrlState.restore()
+                .then(() => {
+                    game.drawTetromino();
+                    game.state.paused = false;
+                })
+        } break;
+
+
+        case "KeyL": {
+            if (e.altKey) {
+                game.grid.forEach((row, i) => {
+                    console.log(i + " " + row.toString());
+                });
+            }
+        } break;
+
+    }
+}
+
+document.body.onkeydown = (e: KeyboardEvent) => {
+    switch (e.code) {
         case "ArrowLeft": {
             game.state.paused = true;
             if (game.cannotShift(-1)) return game.state.paused = false;
@@ -308,26 +333,5 @@ document.body.onkeyup = (e: KeyboardEvent) => {
                     game.state.paused = false;
                 })
         } break;
-
-        case "Enter": {
-            game.state.paused = true;
-            if (!game.rotateTetromino()) return game.state.paused = false;
-
-            game.dataUrlState.restore()
-                .then(() => {
-                    game.drawTetromino();
-                    game.state.paused = false;
-                })
-        } break;
-
-
-        case "KeyL": {
-            if (e.altKey) {
-                game.grid.forEach((row, i) => {
-                    console.log(i + " " + row.toString());
-                });
-            }
-        } break;
-
     }
 }
