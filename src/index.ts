@@ -34,6 +34,7 @@ class Game {
     score = 0;
     state = { over: false, paused: false };
     grid: Array<Array<number>> = [];
+    colorGrid: Array<Array<string>> = [];
     dataUrlState: DataUrlState = new DataUrlState(canvas, ctx);
     tetromino: Tetromino = new TetrominoGrid().getRandom();
     nextTetromino?: Tetromino;
@@ -122,6 +123,7 @@ class Game {
                 while (index > 1) {
                     for (let j = 1; j < el.length - 1; j++) {
                         this.grid[index][j] = this.grid[index - 1][j];
+                        this.colorGrid[index][j] = this.colorGrid[index - 1][j];
                     }
                     index--;
                 }
@@ -223,6 +225,7 @@ class Game {
             for (let j = 0; j < this.tetromino.grid[i].length; j++) {
                 if (this.tetromino.grid[i][j]) {
                     this.grid[i + this.tetromino.position.y][j + this.tetromino.position.x] = 1;
+                    this.colorGrid[i + this.tetromino.position.y][j + this.tetromino.position.x] = this.tetromino.color;
                 }
             }
         }
@@ -232,6 +235,7 @@ class Game {
         for (let i = 0; i < this.tetromino.grid.length; i++) {
             for (let j = 0; j < this.tetromino.grid[i].length; j++) {
                 if (this.tetromino.grid[i][j]) {
+                    this.colorGrid[i][j] = this.tetromino.color
                     this.draw.box([(j + this.tetromino.position.x) * 30, (i + this.tetromino.position.y) * 30], false, this.tetromino.color);
                 }
             }
@@ -241,10 +245,13 @@ class Game {
     initializeGrid = () => {
         for (let i = 0; i < 20; i++) {
             const row: number[] = [];
+            const colorGridRow: string[] = [];
             for (let j = 0; j < 13; j++) {
                 row.push((i % 19 === 0 || j % 12 === 0) && 1 || 0);
+                colorGridRow.push("#ffff");
             }
             this.grid.push(row);
+            this.colorGrid.push(colorGridRow);
         }
 
         return this;
@@ -264,7 +271,7 @@ class Game {
         for (let i = 1; i < 19; i++) {
             for (let j = 1; j < 12; j++) {
                 if (this.grid[i][j]) {
-                    this.draw.box([j * 30, i * 30]);
+                    this.draw.box([j * 30, i * 30], undefined, this.colorGrid[i][j]);
                 }
             }
         }

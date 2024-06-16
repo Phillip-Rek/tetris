@@ -38,7 +38,7 @@ export class TetrominoGrid {
             [0, 2, 0, 0],
             [0, 2, 2, 0],
             [0, 0, 0, 0],
-        ], "#000f"]
+        ], "#700f"]
     }
 
     get tetromino_3(): [number[][], string] {
@@ -47,7 +47,7 @@ export class TetrominoGrid {
             [0, 2, 2, 0],
             [0, 0, 2, 0],
             [0, 0, 0, 0],
-        ], "#000f"]
+        ], "#070f"]
     }
 
     get tetromino_4(): [number[][], string] {
@@ -56,7 +56,7 @@ export class TetrominoGrid {
             [0, 2, 2, 0],
             [0, 2, 0, 0],
             [0, 0, 0, 0],
-        ], "#000f"]
+        ], "#007f"]
     }
 
     get tetromino_5(): [number[][], string] {
@@ -65,6 +65,6 @@ export class TetrominoGrid {
             [0, 2, 2, 0],
             [0, 2, 2, 0],
             [0, 0, 0, 0],
-        ], "#000f"]
+        ], "#077f"]
     }
 }
