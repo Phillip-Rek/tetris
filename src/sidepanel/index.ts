@@ -6,7 +6,7 @@ export class SidePanel {
     ctx: CanvasRenderingContext2D;
     canvas: HTMLCanvasElement;
 
-    constructor(private width = "300px") {
+    constructor(private width = "300px", private game: Game) {
 
         this.container = this.createContainer();
         this.scoreElement = this.createScoreElement();
@@ -94,5 +94,19 @@ export class SidePanel {
         this.container.appendChild(canvas);
 
         return [ctx, canvas];
+    }
+
+    updateNextTetromino() {
+
+    }
+
+    private drawTetromino = () => {
+        for (let i = 0; i < this.game.tetromino.grid.length; i++) {
+            for (let j = 0; j < this.game.tetromino.grid[i].length; j++) {
+                if (this.game.tetromino.grid[i][j]) {
+                    this.game.draw.box([(j + this.game.tetromino.position.x) * 30, (i + this.game.tetromino.position.y) * 30], false, this.tetromino.color);
+                }
+            }
+        }
     }
 }
