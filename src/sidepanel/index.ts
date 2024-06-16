@@ -1,4 +1,6 @@
+import { Draw } from "..";
 import { createContext } from "../create-context";
+import { Tetromino } from "../tetromino-grid";
 
 export class SidePanel {
     container: HTMLElement;
@@ -6,7 +8,11 @@ export class SidePanel {
     ctx: CanvasRenderingContext2D;
     canvas: HTMLCanvasElement;
 
-    constructor(private width = "300px", private game: Game) {
+    private draw: Draw
+
+    tetromino?: Tetromino;
+
+    constructor(private width = "250px") {
 
         this.container = this.createContainer();
         this.scoreElement = this.createScoreElement();
@@ -16,6 +22,10 @@ export class SidePanel {
 
         this.ctx = ctx;
         this.canvas = canvas;
+
+        this.draw = new Draw(this.ctx);
+
+        this.drawTetromino();
     }
 
     createContainer() {
@@ -79,7 +89,7 @@ export class SidePanel {
         return container;
     }
 
-    nextTetromino(): [CanvasRenderingContext2D, HTMLCanvasElement] {
+    private nextTetromino(): [CanvasRenderingContext2D, HTMLCanvasElement] {
         const [ctx, canvas] = createContext(250, 250, false);
         ctx.fillStyle = "#cccf";
         ctx.fillRect(0, 0, 250, 250);
@@ -96,15 +106,22 @@ export class SidePanel {
         return [ctx, canvas];
     }
 
-    updateNextTetromino() {
+    updateTetromino(tetromino: Tetromino) {
+        this.ctx.fillStyle = "#cccf";
+        this.ctx.fillRect(0, 0, 250, 250);
 
+        this.tetromino = tetromino;
+        this.tetromino.position = { x: 0, y: 1 }
+        this.drawTetromino();
     }
 
     private drawTetromino = () => {
-        for (let i = 0; i < this.game.tetromino.grid.length; i++) {
-            for (let j = 0; j < this.game.tetromino.grid[i].length; j++) {
-                if (this.game.tetromino.grid[i][j]) {
-                    this.game.draw.box([(j + this.game.tetromino.position.x) * 30, (i + this.game.tetromino.position.y) * 30], false, this.tetromino.color);
+        if (!this.tetromino) return;
+        // console.log(this.draw)
+        for (let i = 0; i < this.tetromino.grid.length; i++) {
+            for (let j = 0; j < this.tetromino.grid[i].length; j++) {
+                if (this.tetromino.grid[i][j]) {
+                    this.draw.box([(j + this.tetromino.position.x) * 30, (i + this.tetromino.position.y) * 30], false, this.tetromino.color);
                 }
             }
         }

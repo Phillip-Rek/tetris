@@ -5,9 +5,9 @@ import { DataUrlState } from "./data-url-state";
 import { Tetromino, TetrominoGrid } from "./tetromino-grid";
 import { SidePanel } from "./sidepanel";
 
-class Draw {
+export class Draw {
 
-    constructor(private ctx: CanvasRenderingContext2D) {
+    constructor(public ctx: CanvasRenderingContext2D) {
 
     }
 
@@ -27,21 +27,6 @@ class Draw {
         this.ctx.fillRect(x + 4, y + 4, 22, 22);
     }
 }
-// const box = (coordinates2D: [number, number], erase?: boolean, color?: string) => {
-//     const [x, y] = coordinates2D;
-
-//     if (erase) {
-//         ctx.fillStyle = "#ffff";
-//         return ctx.fillRect(x, y, 30, 30);
-//     }
-
-//     ctx.fillStyle = color || "#000f";
-//     ctx.fillRect(x, y, 30, 30);
-//     ctx.fillStyle = "#ffff";
-//     ctx.fillRect(x + 2, y + 2, 26, 26);
-//     ctx.fillStyle = color || "#000f";
-//     ctx.fillRect(x + 4, y + 4, 22, 22);
-// }
 
 const [ctx, canvas] = createContext();
 
@@ -51,6 +36,7 @@ class Game {
     grid: Array<Array<number>> = [];
     dataUrlState: DataUrlState = new DataUrlState(canvas, ctx);
     tetromino: Tetromino = new TetrominoGrid().getRandom();
+    nextTetromino?: Tetromino;
 
     constructor(private sidePanel: SidePanel, private draw: Draw) {
         this.initializeGrid();
@@ -63,7 +49,7 @@ class Game {
     }
 
     start = () => {
-        this.drawTetromino();
+        // this.drawTetromino();
         const loop = setInterval(() => {
 
             if (this.state.paused) return;
@@ -79,7 +65,18 @@ class Game {
                     return alert("Game Over");
                 }
 
-                this.tetromino = new TetrominoGrid().getRandom();
+                if (this.nextTetromino) {
+                    this.tetromino = { ...this.nextTetromino };
+                    this.nextTetromino = new TetrominoGrid().getRandom();
+                    this.sidePanel.updateTetromino(this.nextTetromino);
+                }
+                else {
+                    this.nextTetromino = new TetrominoGrid().getRandom();
+                    return this.sidePanel.updateTetromino(this.nextTetromino);
+                }
+
+                // this.nextTetromino = new TetrominoGrid().getRandom();
+
 
                 this.tetromino.position = { x: 6, y: 1 }
 
@@ -203,6 +200,7 @@ class Game {
 
     get hitGround(): boolean {
 
+
         for (let i = 0; i < this.tetromino.grid.length; i++) {
             for (let j = 0; j < this.tetromino.grid[i].length; j++) {
                 if (this.tetromino.grid[i][j]) {
@@ -277,7 +275,7 @@ class Game {
 
 }
 
-const game = new Game(new SidePanel(), new Draw(ctx))
+const game = new Game(new SidePanel(undefined), new Draw(ctx));
 
 document.body.onkeyup = (e: KeyboardEvent) => {
     switch (e.code) {
