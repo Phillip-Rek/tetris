@@ -10,8 +10,8 @@ export class SidePanel {
 
     createContainer() {
         const sidePanel = document.createElement("div");
-        sidePanel.style.width = "350px";
-        sidePanel.style.height = "100%";
+        sidePanel.style.width = "200px";
+        sidePanel.style.height = "600px";
         sidePanel.style.border = "2px solid red";
         sidePanel.style.display = "flex";
         sidePanel.style.flexDirection = "column"
@@ -24,6 +24,7 @@ export class SidePanel {
     createScoreElement() {
         const scoreContainer = document.createElement("div");
         const scoreElement = document.createElement("p");
+        scoreElement.innerHTML = "<b>Score: </b>" + "00";
         scoreContainer.appendChild(scoreElement);
 
         scoreContainer.style.width = "100%";
@@ -31,6 +32,10 @@ export class SidePanel {
 
         this.container.appendChild(scoreContainer);
 
-        return scoreContainer;
+        return scoreElement;
+    }
+
+    updateScore(score: string) {
+        this.scoreElement.innerHTML = "<b>Score: </b>" + score;
     }
 }
