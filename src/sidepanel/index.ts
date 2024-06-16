@@ -1,9 +1,10 @@
 export class SidePanel {
     container: HTMLElement;
-
+    scoreElement: HTMLElement;
     constructor() {
 
         this.container = this.createContainer();
+        this.scoreElement = this.createScoreElement();
 
     }
 
