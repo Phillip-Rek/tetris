@@ -50,6 +50,10 @@ class Game {
 
     start = () => {
         // this.drawTetromino();
+        this.tetromino = new TetrominoGrid().getRandom();
+        this.nextTetromino = new TetrominoGrid().getRandom();
+        this.sidePanel.updateTetromino(this.nextTetromino);
+
         const loop = setInterval(() => {
 
             if (this.state.paused) return;
@@ -65,18 +69,11 @@ class Game {
                     return alert("Game Over");
                 }
 
-                if (this.nextTetromino) {
-                    this.tetromino = { ...this.nextTetromino };
-                    this.nextTetromino = new TetrominoGrid().getRandom();
-                    this.sidePanel.updateTetromino(this.nextTetromino);
-                }
-                else {
-                    this.nextTetromino = new TetrominoGrid().getRandom();
-                    return this.sidePanel.updateTetromino(this.nextTetromino);
-                }
+                if (!this.nextTetromino) return alert("Something went wrong");
 
-                // this.nextTetromino = new TetrominoGrid().getRandom();
-
+                this.tetromino = { ...this.nextTetromino };
+                this.nextTetromino = new TetrominoGrid().getRandom();
+                this.sidePanel.updateTetromino(this.nextTetromino);
 
                 this.tetromino.position = { x: 6, y: 1 }
 
