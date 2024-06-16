@@ -5,21 +5,43 @@ import { DataUrlState } from "./data-url-state";
 import { Tetromino, TetrominoGrid } from "./tetromino-grid";
 import { SidePanel } from "./sidepanel";
 
-const box = (coordinates2D: [number, number], erase?: boolean, color?: string) => {
-    const [x, y] = coordinates2D;
+class Draw {
 
-    if (erase) {
-        ctx.fillStyle = "#ffff";
-        return ctx.fillRect(x, y, 30, 30);
+    constructor(private ctx: CanvasRenderingContext2D) {
+
     }
 
-    ctx.fillStyle = color || "#000f";
-    ctx.fillRect(x, y, 30, 30);
-    ctx.fillStyle = "#ffff";
-    ctx.fillRect(x + 2, y + 2, 26, 26);
-    ctx.fillStyle = color || "#000f";
-    ctx.fillRect(x + 4, y + 4, 22, 22);
+    box = (coordinates2D: [number, number], erase?: boolean, color?: string) => {
+        const [x, y] = coordinates2D;
+
+        if (erase) {
+            this.ctx.fillStyle = "#ffff";
+            return this.ctx.fillRect(x, y, 30, 30);
+        }
+
+        this.ctx.fillStyle = color || "#000f";
+        this.ctx.fillRect(x, y, 30, 30);
+        this.ctx.fillStyle = "#ffff";
+        this.ctx.fillRect(x + 2, y + 2, 26, 26);
+        this.ctx.fillStyle = color || "#000f";
+        this.ctx.fillRect(x + 4, y + 4, 22, 22);
+    }
 }
+// const box = (coordinates2D: [number, number], erase?: boolean, color?: string) => {
+//     const [x, y] = coordinates2D;
+
+//     if (erase) {
+//         ctx.fillStyle = "#ffff";
+//         return ctx.fillRect(x, y, 30, 30);
+//     }
+
+//     ctx.fillStyle = color || "#000f";
+//     ctx.fillRect(x, y, 30, 30);
+//     ctx.fillStyle = "#ffff";
+//     ctx.fillRect(x + 2, y + 2, 26, 26);
+//     ctx.fillStyle = color || "#000f";
+//     ctx.fillRect(x + 4, y + 4, 22, 22);
+// }
 
 const [ctx, canvas] = createContext();
 
@@ -30,7 +52,7 @@ class Game {
     dataUrlState: DataUrlState = new DataUrlState(canvas, ctx);
     tetromino: Tetromino = new TetrominoGrid().getRandom();
 
-    constructor(private sidePanel: SidePanel) {
+    constructor(private sidePanel: SidePanel, private draw: Draw) {
         this.initializeGrid();
         this.drawWalls();
         this.dataUrlState.update();
@@ -215,7 +237,7 @@ class Game {
         for (let i = 0; i < this.tetromino.grid.length; i++) {
             for (let j = 0; j < this.tetromino.grid[i].length; j++) {
                 if (this.tetromino.grid[i][j]) {
-                    box([(j + this.tetromino.position.x) * 30, (i + this.tetromino.position.y) * 30], false, this.tetromino.color);
+                    this.draw.box([(j + this.tetromino.position.x) * 30, (i + this.tetromino.position.y) * 30], false, this.tetromino.color);
                 }
             }
         }
@@ -237,7 +259,7 @@ class Game {
         for (let i = 0; i < 20; i++) {
             for (let j = 0; j < 13; j++) {
                 if (this.grid[i][j]) {
-                    box([j * 30, i * 30], false, "#016f");
+                    this.draw.box([j * 30, i * 30], false, "#016f");
                 }
             }
         }
@@ -247,7 +269,7 @@ class Game {
         for (let i = 1; i < 19; i++) {
             for (let j = 1; j < 12; j++) {
                 if (this.grid[i][j]) {
-                    box([j * 30, i * 30]);
+                    this.draw.box([j * 30, i * 30]);
                 }
             }
         }
@@ -255,7 +277,7 @@ class Game {
 
 }
 
-const game = new Game(new SidePanel())
+const game = new Game(new SidePanel(), new Draw(ctx))
 
 document.body.onkeyup = (e: KeyboardEvent) => {
     switch (e.code) {
