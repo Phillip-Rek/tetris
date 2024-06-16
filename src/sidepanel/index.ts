@@ -3,13 +3,19 @@ import { createContext } from "../create-context";
 export class SidePanel {
     container: HTMLElement;
     scoreElement: HTMLElement;
+    ctx: CanvasRenderingContext2D;
+    canvas: HTMLCanvasElement;
+
     constructor(private width = "300px") {
 
         this.container = this.createContainer();
         this.scoreElement = this.createScoreElement();
 
         this.showInstructions();
-        this.nextTetromino();
+        const [ctx, canvas] = this.nextTetromino();
+
+        this.ctx = ctx;
+        this.canvas = canvas;
     }
 
     createContainer() {
@@ -73,7 +79,7 @@ export class SidePanel {
         return container;
     }
 
-    nextTetromino() {
+    nextTetromino(): [CanvasRenderingContext2D, HTMLCanvasElement] {
         const [ctx, canvas] = createContext(250, 250, false);
         ctx.fillStyle = "#cccf";
         ctx.fillRect(0, 0, 250, 250);
@@ -86,5 +92,7 @@ export class SidePanel {
 
         this.container.appendChild(heading);
         this.container.appendChild(canvas);
+
+        return [ctx, canvas];
     }
 }
