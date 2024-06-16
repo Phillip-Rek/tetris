@@ -1,9 +1,10 @@
 
-export function createContext(w?: number, h?: number): [CanvasRenderingContext2D, HTMLCanvasElement] {
+export function createContext(w?: number, h?: number, clean: boolean = true): [CanvasRenderingContext2D, HTMLCanvasElement] {
 
     let canvas = document.createElement("canvas");
 
-    Array.from(document.body.children).forEach(el => { el.remove() })
+    if (clean)
+        Array.from(document.body.children).forEach(el => { el.remove() })
 
     document.body.appendChild(canvas);
     canvas.width = w || 390;
