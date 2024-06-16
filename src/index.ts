@@ -3,6 +3,7 @@ import "./index.css";
 import { createContext } from "./create-context";
 import { DataUrlState } from "./data-url-state";
 import { Tetromino, TetrominoGrid } from "./tetromino-grid";
+import { SidePanel } from "./sidepanel";
 
 const box = (coordinates2D: [number, number], erase?: boolean, color?: string) => {
     const [x, y] = coordinates2D;
@@ -29,7 +30,7 @@ class Game {
     dataUrlState: DataUrlState = new DataUrlState(canvas, ctx);
     tetromino: Tetromino = new TetrominoGrid().getRandom();
 
-    constructor() {
+    constructor(private sidePanel: SidePanel) {
         this.initializeGrid();
         this.drawWalls();
         this.dataUrlState.update();
@@ -85,8 +86,7 @@ class Game {
 
     increaseScore = () => {
         this.score += 5;
-        const scoreEl = <HTMLDivElement>document.getElementById("score");
-        scoreEl.innerHTML = `Score: ${this.score}`;
+        this.sidePanel.updateScore(this.score + "");
     }
 
     handleCompleteRows = () => {
@@ -255,7 +255,7 @@ class Game {
 
 }
 
-const game = new Game()
+const game = new Game(new SidePanel())
 
 document.body.onkeyup = (e: KeyboardEvent) => {
     switch (e.code) {
