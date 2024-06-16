@@ -1,17 +1,20 @@
+import { createContext } from "../create-context";
+
 export class SidePanel {
     container: HTMLElement;
     scoreElement: HTMLElement;
-    constructor() {
+    constructor(private width = "300px") {
 
         this.container = this.createContainer();
         this.scoreElement = this.createScoreElement();
 
         this.showInstructions();
+        this.nextTetromino();
     }
 
     createContainer() {
         const sidePanel = document.createElement("div");
-        sidePanel.style.width = "250px";
+        sidePanel.style.width = this.width;
         sidePanel.style.height = "600px";
         sidePanel.style.border = "1px solid #00af";
         sidePanel.style.display = "flex";
@@ -68,5 +71,20 @@ export class SidePanel {
         this.container.appendChild(container);
 
         return container;
+    }
+
+    nextTetromino() {
+        const [ctx, canvas] = createContext(250, 250, false);
+        ctx.fillStyle = "#cccf";
+        ctx.fillRect(0, 0, 250, 250);
+        // canvas.style.border = "1px solid red"
+        canvas.style.width = this.width
+        canvas.style.height = "250px";
+
+        const heading = document.createElement("p");
+        heading.innerHTML = "<b>NEXT</b>";
+
+        this.container.appendChild(heading);
+        this.container.appendChild(canvas);
     }
 }
